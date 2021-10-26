@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - streaming_radio_flutter_plugin (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - streaming_radio_flutter_plugin (from `.symlinks/plugins/streaming_radio_flutter_plugin/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  streaming_radio_flutter_plugin:
+    :path: ".symlinks/plugins/streaming_radio_flutter_plugin/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  streaming_radio_flutter_plugin: 89c11d0c0c74f98685ef7fffaeaf604897334eba
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.11.2
