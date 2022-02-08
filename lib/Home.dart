@@ -196,27 +196,6 @@ class _HomeState extends State<Home> {
                                 indent: 0,
                                 endIndent: 0,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Powered by",
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w500,
-                                      color: Color(0xff2D2E2F),
-                                    ),
-                                  ),
-                                  Text(
-                                    " Bluespace",
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w300,
-                                      color: Color(0xff2D2E2F),
-                                    ),
-                                  )
-                                ],
-                              )
                             ],
                           ),
                         ),
