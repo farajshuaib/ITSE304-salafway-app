@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
             title: const Text('طريق السلف'),
             backgroundColor: Color(0xFF2A5089),
           ),
-          body: Center(
+          body: Container(
             child: _widgetOptions.elementAt(_selectedIndex),
           ),
           bottomNavigationBar: BottomNavigationBar(

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:http/http.dart' as http;
+import 'package:audioplayers/audioplayers.dart';
 
 class Reader extends StatefulWidget {
   final String? reader_id;
@@ -18,6 +19,7 @@ class _ReaderState extends State<Reader> {
 
   var data = {};
   var surasData = [];
+  String currentUrl = "";
   bool loading = true;
 
   getData() async {
@@ -48,9 +50,32 @@ class _ReaderState extends State<Reader> {
     super.initState();
   }
 
+  Future play(String url) async {
+    print(url);
+    try {
+      if (currentUrl == url) {
+        player.pause();
+        setState(() {
+          currentUrl = "";
+        });
+      } else {
+        player.play(url, isLocal: true);
+        setState(() {
+          currentUrl = url;
+        });
+      }
+    } catch (err) {
+      print('$err');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('القرآن الكريم'),
+        backgroundColor: Color(0xFF2A5089),
+      ),
       body: Container(
         color: Colors.white,
         height: double.infinity,
@@ -60,38 +85,53 @@ class _ReaderState extends State<Reader> {
                   color: Theme.of(context).primaryColor,
                 ),
               )
-            : Container(
-                child: ListView.builder(
-                    itemCount: surasData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            child: Container(
-                              padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
-                              margin: EdgeInsets.only(bottom: 10, top: 10),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black12,
-                                        spreadRadius: 1,
-                                        blurRadius: 3)
-                                  ]),
-                              child: Text(
+            : ListView.builder(
+                itemCount: surasData.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: GestureDetector(
+                      onTap: () => play(surasData[index]['url'].toString()),
+                      child: Container(
+                        child: Container(
+                          padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+                          margin: EdgeInsets.only(bottom: 10, top: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  spreadRadius: 1,
+                                  blurRadius: 3)
+                            ],
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                  currentUrl ==
+                                          surasData[index]['url'].toString()
+                                      ? Icons.pause_circle_filled_rounded
+                                      : Icons.play_arrow_outlined,
+                                  color: Colors.black45),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
                                 "${surasData[index]['name'].toString()}",
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xff2D2E2F),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ),
-                      );
-                    }),
-              ),
+                      ),
+                    ),
+                  );
+                }),
       ),
     );
   }

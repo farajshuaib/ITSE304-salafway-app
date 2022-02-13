@@ -133,7 +133,7 @@ class _LiveRadioState extends State<LiveRadio> {
                                     width: 5,
                                   ),
                                   Text(
-                                    "00218911234567",
+                                    "+218911234567",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Color(0xff2D2E2F),
@@ -215,6 +215,7 @@ class _LiveRadioState extends State<LiveRadio> {
                             stream:
                                 streamingController.streamingController.stream,
                             builder: (BuildContext context, snapshot) {
+                              print(snapshot.data);
                               if (snapshot.data == null ||
                                   snapshot.data == "paused_event") {
                                 return IconButton(
