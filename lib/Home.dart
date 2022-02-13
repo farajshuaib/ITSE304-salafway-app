@@ -1,12 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:http/http.dart' as http;
-
-typedef OnError = void Function(Exception exception);
-
-// https://qurani-api.herokuapp.com/api/reciters
+import './reader.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -16,15 +14,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  AudioPlayer player = AudioPlayer();
-
-  late final dynamic data;
+  var data = [];
+  bool loading = true;
 
   getData() async {
-    var url = Uri.parse('https://qurani-api.herokuapp.com/api/reciters');
-    var response = await http.get(url);
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
+    try {
+      var url = Uri.parse('https://qurani-api.herokuapp.com/api/reciters');
+      var response = await http.get(url);
+      setState(() {
+        data = jsonDecode(response.body);
+        loading = false;
+      });
+    } catch (err) {
+      setState(() {
+        loading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content:
+              Text("حدث خطأ ما في جلب البيانات الرجاء إعادة المحاولة لاحقا")));
+    }
   }
 
   initState() {
@@ -32,16 +40,63 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  Widget remoteUrl() {
-    return SingleChildScrollView(
-      child: Column(
-        children: [],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      color: Colors.white,
+      height: double.infinity,
+      child: loading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).primaryColor,
+              ),
+            )
+          : Container(
+              child: ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                        title: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Reader(reader_id: data[index]['id'])),
+                        );
+                      },
+                      child: Container(
+                          padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+                          margin: EdgeInsets.only(bottom: 10, top: 10),
+                          decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black12,
+                                    spreadRadius: 1,
+                                    blurRadius: 3)
+                              ]),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${data[index]['name']}",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                "${data[index]['rewaya']}",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          )),
+                    ));
+                  }),
+            ),
+    );
   }
 }
