@@ -1,20 +1,45 @@
 PODS:
+  - audioplayers (0.0.1):
+    - Flutter
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - Reachability
   - Flutter (1.0.0)
+  - path_provider_ios (0.0.1):
+    - Flutter
+  - Reachability (3.2)
   - streaming_radio_flutter_plugin (0.0.1):
     - Flutter
 
 DEPENDENCIES:
+  - audioplayers (from `.symlinks/plugins/audioplayers/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
+  - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - streaming_radio_flutter_plugin (from `.symlinks/plugins/streaming_radio_flutter_plugin/ios`)
 
+SPEC REPOS:
+  trunk:
+    - Reachability
+
 EXTERNAL SOURCES:
+  audioplayers:
+    :path: ".symlinks/plugins/audioplayers/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   Flutter:
     :path: Flutter
+  path_provider_ios:
+    :path: ".symlinks/plugins/path_provider_ios/ios"
   streaming_radio_flutter_plugin:
     :path: ".symlinks/plugins/streaming_radio_flutter_plugin/ios"
 
 SPEC CHECKSUMS:
+  audioplayers: 455322b54050b30ea4b1af7cd9e9d105f74efa8c
+  connectivity_plus: 5f0eb61093bec56935f21a1699dd2758bc895587
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  path_provider_ios: 7d7ce634493af4477d156294792024ec3485acd5
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   streaming_radio_flutter_plugin: 89c11d0c0c74f98685ef7fffaeaf604897334eba
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
