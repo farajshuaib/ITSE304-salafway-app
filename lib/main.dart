@@ -85,14 +85,13 @@ class _MyAppState extends State<MyApp> {
         title: 'طريق السلف',
         theme: ThemeData(
           primaryColor: Color(0xFF2A5592),
-          // textTheme: GoogleFonts.tajawalTextTheme(
-          //   Theme.of(context).textTheme,
-          // ),
+          textTheme: GoogleFonts.tajawalTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
         home: Scaffold(
           appBar: AppBar(
             title: const Text('طريق السلف'),
-            // elevation: 0,
             backgroundColor: Color(0xFF2A5089),
           ),
           body: Center(

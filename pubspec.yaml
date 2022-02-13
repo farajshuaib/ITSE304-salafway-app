@@ -33,7 +33,7 @@ dependencies:
   streaming_radio_flutter_plugin: ^3.0.2
   audioplayers: ^0.20.0
   provider: ^6.0.2
-  google_fonts: ^2.3.0
+  google_fonts: ^2.3.1
   http: ^0.13.4
   connectivity_plus: ^1.0.6
 

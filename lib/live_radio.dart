@@ -179,7 +179,7 @@ class _LiveRadioState extends State<LiveRadio> {
                                     width: 5,
                                   ),
                                   Text(
-                                    "tripoli - libya",
+                                    "طرابلس - ليبيا",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Color(0xff2D2E2F),
