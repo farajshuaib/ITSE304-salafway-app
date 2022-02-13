@@ -16,7 +16,8 @@ class Reader extends StatefulWidget {
 class _ReaderState extends State<Reader> {
   AudioPlayer player = AudioPlayer();
 
-  var data = [];
+  var data = {};
+  var surasData = [];
   bool loading = true;
 
   getData() async {
@@ -26,8 +27,10 @@ class _ReaderState extends State<Reader> {
       var response = await http.get(url);
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
+      var data = jsonDecode(response.body);
       setState(() {
-        data = jsonDecode(response.body);
+        data = data;
+        surasData = data['surasData'];
         loading = false;
       });
     } catch (err) {
@@ -47,34 +50,49 @@ class _ReaderState extends State<Reader> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      height: double.infinity,
-      child: loading
-          ? Center(
-              child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        height: double.infinity,
+        child: loading
+            ? Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ),
+              )
+            : Container(
+                child: ListView.builder(
+                    itemCount: surasData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        title: GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+                              margin: EdgeInsets.only(bottom: 10, top: 10),
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black12,
+                                        spreadRadius: 1,
+                                        blurRadius: 3)
+                                  ]),
+                              child: Text(
+                                "${surasData[index]['name'].toString()}",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
               ),
-            )
-          : Container(
-              child: ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      title: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    Reader(reader_id: data[index]['id'])),
-                          );
-                        },
-                        child: Container(),
-                      ),
-                    );
-                  }),
-            ),
+      ),
     );
   }
 }
