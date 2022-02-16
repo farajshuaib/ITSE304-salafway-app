@@ -40,20 +40,20 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-  // Widget Header() {
-  //   return Container(
-  //     margin: EdgeInsets.all(14),
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.circular(14),
-  //     ),
-  //     child: Image(
-  //       fit: BoxFit.cover,
-  //       height: 240.0,
-  //       image: AssetImage(
-  //           "https://media.istockphoto.com/photos/quran-in-the-mosque-picture-id482765777?k=20&m=482765777&s=612x612&w=0&h=FbG6NPscHKTqlj3uOs5z_0ONb19wNtGtVXrmhlPVjqw="),
-  //     ),
-  //   );
-  // }
+  Widget Header() {
+    return Container(
+      margin: EdgeInsets.all(14),
+      height: 240,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Image.network(
+        'https://i.pinimg.com/736x/bc/ba/40/bcba40508de3efeaaee876fe239c84ba.jpg',
+        fit: BoxFit.cover,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,51 +66,62 @@ class _HomeState extends State<Home> {
                 color: Theme.of(context).primaryColor,
               ),
             )
-          : ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                Reader(reader_id: data[index]['id'])),
-                      );
-                    },
-                    child: Container(
-                        padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
-                        margin: EdgeInsets.only(bottom: 10, top: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black12,
-                                  spreadRadius: 1,
-                                  blurRadius: 3)
-                            ]),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "${data[index]['name']}",
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                            Text(
-                              "${data[index]['rewaya']}",
-                              style: TextStyle(
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        )),
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  Header(),
+                  Container(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                          title: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Reader(reader_id: data[index]['id'])),
+                              );
+                            },
+                            child: Container(
+                                padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+                                margin: EdgeInsets.only(bottom: 10, top: 10),
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black12,
+                                          spreadRadius: 1,
+                                          blurRadius: 3)
+                                    ]),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${data[index]['name']}",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${data[index]['rewaya']}",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
     );
   }

@@ -59,7 +59,8 @@ class _ReaderState extends State<Reader> {
           currentUrl = "";
         });
       } else {
-        player.play(url, isLocal: true);
+        player.play(url,
+            isLocal: false, stayAwake: true, respectSilence: false);
         setState(() {
           currentUrl = url;
         });
@@ -85,53 +86,69 @@ class _ReaderState extends State<Reader> {
                   color: Theme.of(context).primaryColor,
                 ),
               )
-            : ListView.builder(
-                itemCount: surasData.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: GestureDetector(
-                      onTap: () => play(surasData[index]['url'].toString()),
-                      child: Container(
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
-                          margin: EdgeInsets.only(bottom: 10, top: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(8),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black12,
-                                  spreadRadius: 1,
-                                  blurRadius: 3)
-                            ],
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                  currentUrl ==
-                                          surasData[index]['url'].toString()
-                                      ? Icons.pause_circle_filled_rounded
-                                      : Icons.play_arrow_outlined,
-                                  color: Colors.black45),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "${surasData[index]['name'].toString()}",
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff2D2E2F),
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: surasData.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ListTile(
+                              title: GestureDetector(
+                                onTap: () =>
+                                    play(surasData[index]['url'].toString()),
+                                child: Container(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.fromLTRB(10, 15, 10, 15),
+                                    margin:
+                                        EdgeInsets.only(bottom: 10, top: 10),
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black12,
+                                            spreadRadius: 1,
+                                            blurRadius: 3)
+                                      ],
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                            currentUrl ==
+                                                    surasData[index]['url']
+                                                        .toString()
+                                                ? Icons
+                                                    .pause_circle_filled_rounded
+                                                : Icons.play_arrow_outlined,
+                                            color: Colors.black45),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text(
+                                          "${surasData[index]['name'].toString()}",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xff2D2E2F),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
+                            );
+                          }),
                     ),
-                  );
-                }),
+                  ],
+                ),
+              ),
       ),
     );
   }

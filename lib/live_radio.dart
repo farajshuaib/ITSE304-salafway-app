@@ -27,20 +27,12 @@ class _LiveRadioState extends State<LiveRadio> {
           clipBehavior: Clip.none,
           children: [
             Container(
-              height: double.infinity,
-              width: double.infinity,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
-                    child: Image(
-                      image: NetworkImage(
-                          'https://www.salafway.ly/assets/img/logo.png'),
-                    ),
-                  )
-                ],
+              child: Center(
+                child: Icon(
+                  Icons.radio_outlined,
+                  size: 120,
+                  color: Colors.white,
+                ),
               ),
             ),
             SizedBox.expand(
