@@ -207,7 +207,6 @@ class _LiveRadioState extends State<LiveRadio> {
                             stream:
                                 streamingController.streamingController.stream,
                             builder: (BuildContext context, snapshot) {
-                              print(snapshot.data);
                               if (snapshot.data == null ||
                                   snapshot.data == "paused_event") {
                                 return IconButton(

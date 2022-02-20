@@ -35,6 +35,7 @@ class _HomeState extends State<Home> {
     }
   }
 
+  @override
   initState() {
     getData();
     super.initState();
@@ -83,7 +84,7 @@ class _HomeState extends State<Home> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        Reader(reader_id: data[index]['id'])),
+                                        Reader(reader_id: data[index]!['id'])),
                               );
                             },
                             child: Container(

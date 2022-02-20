@@ -29,10 +29,10 @@ class _ReaderState extends State<Reader> {
       var response = await http.get(url);
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
-      var data = jsonDecode(response.body);
+      var responseData = jsonDecode(response.body);
       setState(() {
-        data = data;
-        surasData = data['surasData'];
+        data = responseData;
+        surasData = responseData['surasData'];
         loading = false;
       });
     } catch (err) {

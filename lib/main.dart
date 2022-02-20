@@ -43,13 +43,7 @@ class _MyAppState extends State<MyApp> {
   @override
   initState() {
     super.initState();
-    // watch the internet connection
-    _connectivitySubscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-      print('Current connectivity status: $result');
-      _connectivityResult = result;
-    });
+    _checkConnectivityState();
   }
 
   @override
@@ -102,12 +96,10 @@ class _MyAppState extends State<MyApp> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'الرئيسية',
-                backgroundColor: Colors.red,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.radio),
                 label: 'الراديو',
-                backgroundColor: Colors.green,
               ),
             ],
             currentIndex: _selectedIndex,
