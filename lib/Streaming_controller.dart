@@ -32,7 +32,7 @@ class StreamingController {
     try {
       String result = await _channel.invokeMethod('config', <String, dynamic>{
         'url': url,
-        'notification_title': "radio app ",
+        'notification_title': "قناة طريق السلف",
         'notification_description': "",
         'notification_color': "#2A5592",
         'notification_stop_button_text': "Stop",
