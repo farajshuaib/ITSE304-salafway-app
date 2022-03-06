@@ -91,28 +91,24 @@ class _HomeState extends State<Home> {
                                 padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                                 margin: EdgeInsets.only(bottom: 10, top: 10),
                                 decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(8),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black12,
-                                          spreadRadius: 1,
-                                          blurRadius: 3)
-                                    ]),
+                                  color: Color(0xfff0f9ff),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       "${data[index]['name']}",
                                       style: TextStyle(
-                                        fontSize: 18,
-                                      ),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     Text(
                                       "${data[index]['rewaya']}",
                                       style: TextStyle(
-                                        fontSize: 12,
-                                      ),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.grey[600]),
                                     ),
                                   ],
                                 )),

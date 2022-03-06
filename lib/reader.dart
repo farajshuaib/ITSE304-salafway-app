@@ -27,8 +27,6 @@ class _ReaderState extends State<Reader> {
       var url = Uri.parse(
           'https://qurani-api.herokuapp.com/api/reciters/${widget.reader_id}');
       var response = await http.get(url);
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
       var responseData = jsonDecode(response.body);
       setState(() {
         data = responseData;
