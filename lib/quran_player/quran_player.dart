@@ -32,7 +32,6 @@ class _QuranPlayerState extends State<QuranPlayer> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-
     return Scaffold(
       body: Stack(
         children: <Widget>[
