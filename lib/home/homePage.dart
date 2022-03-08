@@ -101,7 +101,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Header(),
+                  Header(isLocal:isLocal),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
