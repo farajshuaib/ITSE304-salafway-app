@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:streaming_radio_flutter_plugin/streaming_radio_flutter_plugin.dart';
 
 class StreamingController {
   MethodChannel _channel = const MethodChannel('streaming_channel');
