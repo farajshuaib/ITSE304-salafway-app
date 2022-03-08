@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:radio/quran/components/reader.dart';
 
 class AllReciters extends StatelessWidget {
-
-  var listOfReciters ;
+  var listOfReciters;
   bool isLocal;
 
-  AllReciters({@required this.listOfReciters,required this.isLocal, Key? key}) : super(key: key);
+  AllReciters({@required this.listOfReciters, required this.isLocal, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
+    return Container(
       child: ListView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -25,21 +25,16 @@ class AllReciters extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          Reader(readerId:readerId,isLocal: isLocal)),
+                          Reader(readerId: readerId, isLocal: isLocal)),
                 );
               },
               child: Container(
                   padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
                   margin: EdgeInsets.only(bottom: 10, top: 10),
                   decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            spreadRadius: 1,
-                            blurRadius: 3)
-                      ]),
+                    color: Colors.lightBlue[50],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -48,8 +43,7 @@ class AllReciters extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 18,
                             fontFamily: "title",
-                            color: Colors.black
-                        ),
+                            color: Colors.black),
                       ),
                       SizedBox(
                         height: 10,

@@ -3,31 +3,30 @@ import 'dart:ui';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 class QuranPlayer extends StatefulWidget {
-  final  data;
+  final data;
   final bool isLocal;
 
-  QuranPlayer(this.data,this.isLocal);
+  QuranPlayer(this.data, this.isLocal);
 
   @override
   _QuranPlayerState createState() => _QuranPlayerState();
 }
 
 class _QuranPlayerState extends State<QuranPlayer> {
-
-  String currentUrl  = "";
+  String currentUrl = "";
   bool currentState = true;
   var localAudioCacheURI;
   AudioPlayer audioPlayer = AudioPlayer();
   late AudioCache player;
 
-   @override
+  @override
   void dispose() {
     audioPlayer.stop();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +75,6 @@ class _QuranPlayerState extends State<QuranPlayer> {
               SizedBox(height: 48.0),
               _buildWidgetQuranInfo(),
               _buildWidgetControlQuranPlayer(),
-
             ],
           ),
         ),
@@ -85,7 +83,6 @@ class _QuranPlayerState extends State<QuranPlayer> {
   }
 
   Widget _buildWidgetControlQuranPlayer() {
-
     return Expanded(
       child: Center(
         child: Row(
@@ -95,17 +92,15 @@ class _QuranPlayerState extends State<QuranPlayer> {
               child: Icon(Icons.fast_rewind),
             ),
             GestureDetector(
-              onTap: (){
+              onTap: () {
                 setState(() {
-                  if(currentState == true)
-                  currentState = false;
+                  if (currentState == true)
+                    currentState = false;
                   else
                     currentState = true;
-
                 });
 
                 play(widget.data['url']);
-
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -116,7 +111,8 @@ class _QuranPlayerState extends State<QuranPlayer> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
-                  child: currentState ? Icon(Icons.play_arrow) :Icon(Icons.pause) ,
+                  child:
+                      currentState ? Icon(Icons.play_arrow) : Icon(Icons.pause),
                 ),
               ),
             ),
@@ -154,7 +150,6 @@ class _QuranPlayerState extends State<QuranPlayer> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-
         ],
       ),
     );
@@ -221,8 +216,7 @@ class _QuranPlayerState extends State<QuranPlayer> {
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         image: DecorationImage(
-          image:
-          AssetImage("assets/quran_image.jpg"),
+          image: AssetImage("assets/quran_image.jpg"),
           fit: BoxFit.cover,
         ),
       ),
@@ -243,17 +237,15 @@ class _QuranPlayerState extends State<QuranPlayer> {
   Future play(String url) async {
     player = AudioCache(fixedPlayer: audioPlayer);
 
-    if(currentState){
+    if (currentState) {
       audioPlayer.pause();
-    }else{
-      if(widget.isLocal){
+    } else {
+      if (widget.isLocal) {
         player.play(url);
-      }else{
-        audioPlayer.play(url, isLocal: false, stayAwake: true, respectSilence: false);
+      } else {
+        audioPlayer.play(url,
+            isLocal: false, stayAwake: true, respectSilence: false);
       }
     }
-
-
-      }
-
+  }
 }

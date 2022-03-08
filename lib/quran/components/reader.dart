@@ -1,22 +1,22 @@
-
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:radio/quran/components/quran_playlist.dart';
 
 class Reader extends StatefulWidget {
   final String readerId;
   final bool isLocal;
-  Reader({Key? key, required this.readerId,required this.isLocal}) : super(key: key);
+  Reader({Key? key, required this.readerId, required this.isLocal})
+      : super(key: key);
 
   @override
   State<Reader> createState() => _ReaderState();
 }
 
 class _ReaderState extends State<Reader> {
-
   var surahs = [];
 
   bool loading = true;
@@ -42,25 +42,25 @@ class _ReaderState extends State<Reader> {
               Text("حدث خطأ ما في جلب البيانات الرجاء إعادة المحاولة لاحقا")));
     }
   }
-  void loadLocalData()  async {
-    loading = false;
-    var jsonInput = await rootBundle.loadString('asset/localData/quran.json');
-    var responseData = json.decode(jsonInput);
-    setState(() => surahs = responseData['surasData']);
 
+  void loadLocalData() async {
+    var jsonInput = await rootBundle.loadString('assets/localData/quran.json');
+    var responseData = json.decode(jsonInput);
+    setState(() {
+      surahs = responseData['surasData'];
+      loading = false;
+    });
   }
 
   initState() {
-    if(widget.isLocal){
+    if (widget.isLocal) {
       loadLocalData();
-    }else{
+    } else {
       loadRemoteData();
     }
 
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +74,17 @@ class _ReaderState extends State<Reader> {
         height: double.infinity,
         child: loading
             ? Center(
-                child: CircularProgressIndicator(
-                  color: Theme.of(context).primaryColor,
-                ),
+                child: Lottie.asset(
+                "assets/loading.json",
               )
-            : QuranPlaylist(surahs: surahs,isLocal: widget.isLocal,),
+                // CircularProgressIndicator(
+                //   color: Theme.of(context).primaryColor,
+                // ),
+                )
+            : QuranPlaylist(
+                surahs: surahs,
+                isLocal: widget.isLocal,
+              ),
       ),
     );
   }

@@ -10,6 +10,7 @@ import 'components/header.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -38,15 +39,12 @@ class _HomeState extends State<Home> {
   }
 
   void loadRemoteData() async {
-
-    if(await _checkConnectivityState()){
+    if (await _checkConnectivityState()) {
       try {
         var url = Uri.parse('https://qurani-api.herokuapp.com/api/reciters');
         var response = await http.get(url);
         setState(() {
           listOfReciters = jsonDecode(response.body);
-
-
           loading = false;
         });
       } catch (err) {
@@ -58,33 +56,37 @@ class _HomeState extends State<Home> {
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content:
-            Text("حدث خطأ ما في جلب البيانات, انت الان في وضع اوفلاين")));
+                Text("حدث خطأ ما في جلب البيانات, انت الان في وضع اوفلاين")));
       }
-    }
-    else{
+    } else {
       loadLocalData();
     }
-
-
-
-  }
-  void loadLocalData()  async {
-    loading = false;
-    isLocal = true;
-    var jsonText = await rootBundle.loadString('asset/localData/reciters.json');
-    setState(() => listOfReciters = json.decode(jsonText));
-
   }
 
-
+  void loadLocalData() async {
+    try {
+      var jsonText =
+          await rootBundle.loadString('assets/localData/reciters.json');
+      print(jsonText);
+      setState(() {
+        loading = false;
+        isLocal = true;
+      });
+      setState(() => listOfReciters = json.decode(jsonText));
+    } catch (err) {
+      setState(() {
+        loading = false;
+        isLocal = true;
+      });
+      print(err);
+    }
+  }
 
   @override
-  initState()  {
+  initState() {
     loadRemoteData();
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,31 +95,35 @@ class _HomeState extends State<Home> {
       height: double.infinity,
       child: loading
           ? Center(
-              child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
-              ),
+              child: Lottie.asset(
+              "assets/loading.json",
             )
+              // CircularProgressIndicator(
+              //   color: Theme.of(context).primaryColor,
+              // ),
+              )
           : SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Header(isLocal:isLocal),
+                  Header(isLocal: isLocal),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "اختار القارئك المفضل",
+                      "اختار قارئك المفضل",
                       style: TextStyle(
                         fontFamily: "title",
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
-
                       ),
                       textAlign: TextAlign.start,
                     ),
                   ),
-                  AllReciters(listOfReciters: listOfReciters,isLocal: isLocal,)
-
+                  AllReciters(
+                    listOfReciters: listOfReciters,
+                    isLocal: isLocal,
+                  )
                 ],
               ),
             ),
