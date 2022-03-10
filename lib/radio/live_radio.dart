@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:radio/radio/components/radio_descrption.dart';
 import 'package:radio/radio/components/radio_header.dart';
@@ -15,10 +17,9 @@ class _LiveRadioState extends State<LiveRadio> {
   var streamingController = StreamingController();
 
   @override
-  void initState() {
+  initState() {
     super.initState();
-    streamingController.config(
-        url: "http://160.19.99.214:8000/fm"); // salfway fm
+    streamingController.config(url: 'http://160.19.99.214:8000/fm');
   }
 
   @override
@@ -34,10 +35,11 @@ class _LiveRadioState extends State<LiveRadio> {
             SizedBox.expand(
               child: DraggableScrollableSheet(
                 expand: false,
-                initialChildSize: 0.5,
+                initialChildSize: 0.3,
                 maxChildSize: 0.70,
                 minChildSize: 0.20,
-                builder: (BuildContext context, ScrollController scrollController) {
+                builder:
+                    (BuildContext context, ScrollController scrollController) {
                   return Stack(
                     clipBehavior: Clip.none,
                     alignment: Alignment.topCenter,

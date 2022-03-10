@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
         Locale("ar", "LY"),
       ],
       locale: Locale("ar", "LY"),
-      title: 'طريق السلف',
+      title: 'قرآن',
       theme: ThemeData(
         primaryColor: Color(0xFF2A5592),
         // textTheme: GoogleFonts.tajawalTextTheme(

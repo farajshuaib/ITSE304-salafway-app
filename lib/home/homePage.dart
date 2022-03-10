@@ -89,6 +89,11 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
